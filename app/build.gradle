@@ -25,8 +25,21 @@ android {
         enabled = true
         enabledForTests = true
     }
+
+    // Always show the result of every unit test when running via command line, even if it passes.
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
+allprojects {
+    repositories{
+        // In the repositories section, make sure Google's Maven repository appears:
+        google()
+    }
+}
 dependencies {
 
     // App dependencies
@@ -62,4 +75,13 @@ dependencies {
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
+
+    // Other dependencies
+    // the dependency is only available in the test source set
+    testImplementation "org.hamcrest:hamcrest-all:$hamcrestVersion"
+    // AndroidX Test - JVM testing
+    testImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
+    testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
+    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    testImplementation "androidx.arch.core:core-testing:$archTestingVersion"
 }
